@@ -1,0 +1,1502 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>کارخانه بمب | منوی هوشمند دیجیتال</title>
+  
+  <link rel="icon" type="image/png" href="https://lh3.googleusercontent.com/d/1MYRPx9MuOfcBWX6bmh6xsWg4qFKxyJhf">
+  <link rel="apple-touch-icon" href="https://lh3.googleusercontent.com/d/1MYRPx9MuOfcBWX6bmh6xsWg4qFKxyJhf">
+  <link rel="apple-touch-icon" sizes="180x180" href="https://lh3.googleusercontent.com/d/1MYRPx9MuOfcBWX6bmh6xsWg4qFKxyJhf">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="کارخانه بمب">
+  <meta name="theme-color" content="#07080b">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Lalezar&family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-dark: #07080b;
+      --glass-surface: rgba(18, 22, 34, 0.52);
+      --glass-surface-hover: rgba(28, 34, 50, 0.72);
+      --glass-border: rgba(255, 255, 255, 0.16);
+      --glass-specular: rgba(255, 255, 255, 0.45);
+      --glass-inner-shadow: inset 0 1px 1.5px rgba(255, 255, 255, 0.35);
+      --ios-liquid-blur: blur(40px) saturate(210%);
+      --accent-gold: #ffb703;
+      --accent-orange: #fb8500;
+      --text-main: #ffffff;
+      --text-sub: #94a3b8;
+      --hazard-pattern: repeating-linear-gradient(-45deg, #ffb703, #ffb703 14px, #07080b 14px, #07080b 28px);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+      font-family: 'Vazirmatn', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      min-height: 100vh;
+      padding-bottom: 130px;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    ::-webkit-scrollbar { width: 5px; height: 5px; }
+    ::-webkit-scrollbar-track { background: rgba(15, 23, 42, 0.6); border-radius: 6px; }
+    ::-webkit-scrollbar-thumb { background: rgba(255, 183, 3, 0.3); border-radius: 6px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--accent-gold); }
+
+    .fixed-bg-stage {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -1;
+      background: 
+        radial-gradient(circle at 50% 5%, rgba(251, 133, 0, 0.22) 0%, transparent 55%),
+        radial-gradient(circle at 90% 40%, rgba(255, 183, 3, 0.14) 0%, transparent 45%),
+        radial-gradient(circle at 10% 75%, rgba(230, 57, 70, 0.13) 0%, transparent 50%),
+        radial-gradient(circle at 50% 95%, rgba(251, 133, 0, 0.18) 0%, transparent 55%),
+        linear-gradient(180deg, #090b0f 0%, #06070a 100%);
+    }
+
+    .hazard-top-bar {
+      height: 7px;
+      width: 100%;
+      background: var(--hazard-pattern);
+      box-shadow: 0 0 16px rgba(255, 183, 3, 0.5);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .store-closed-banner {
+      display: none;
+      background: linear-gradient(135deg, #ef4444 0%, #b91c1c 100%);
+      color: #ffffff;
+      text-align: center;
+      padding: 10px 15px;
+      font-size: 0.9rem;
+      font-weight: 800;
+      box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4);
+      position: sticky;
+      top: 7px;
+      z-index: 99;
+      animation: pulseAlert 2s infinite;
+    }
+
+    @keyframes pulseAlert {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.85; }
+    }
+
+    header {
+      padding: 22px 18px 10px;
+      text-align: center;
+      position: relative;
+    }
+
+    .logo-box {
+      position: relative;
+      display: inline-block;
+      margin-bottom: 4px;
+    }
+
+    .pacman-logo {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 2px solid var(--accent-gold);
+      filter: drop-shadow(0 10px 24px rgba(251, 133, 0, 0.45));
+      animation: floatBreath 4s ease-in-out infinite;
+    }
+
+    @keyframes floatBreath {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-7px); }
+    }
+
+    .brand-title-fa {
+      font-family: 'Lalezar', cursive;
+      font-size: 2.7rem;
+      color: #fff;
+      text-shadow: 0 4px 20px rgba(0, 0, 0, 0.8), 0 0 30px rgba(255, 183, 3, 0.35);
+      line-height: 1;
+    }
+
+    .brand-title-en {
+      font-family: 'Black Ops One', cursive;
+      font-size: 1.1rem;
+      color: var(--accent-gold);
+      letter-spacing: 5px;
+    }
+
+    .hazard-tag-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255, 183, 3, 0.1);
+      border: 1px solid rgba(255, 183, 3, 0.4);
+      color: #fef08a;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 3px 14px;
+      border-radius: 30px;
+      margin-top: 8px;
+    }
+
+    .update-date-badge {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 5px;
+      width: fit-content;
+      margin: 4px 0 0 auto;
+      padding: 2px 7px;
+      color: rgba(203, 213, 225, 0.7);
+      font-size: 0.7rem;
+      direction: rtl;
+    }
+
+    .menu-wrap {
+      max-width: 620px;
+      margin: 14px auto 0;
+      padding: 0 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .ios-food-card {
+      background: var(--glass-surface);
+      border: 1px solid var(--glass-border);
+      border-top: 1.5px solid var(--glass-specular);
+      border-right: 4.5px solid var(--accent-gold);
+      border-radius: 24px;
+      padding: 16px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      backdrop-filter: var(--ios-liquid-blur);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.65);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .ios-food-card:hover { background: var(--glass-surface-hover); }
+
+    .card-main-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .food-title {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: #ffffff;
+    }
+
+    .food-desc {
+      font-size: 0.84rem;
+      color: var(--text-sub);
+      line-height: 1.5;
+    }
+
+    .food-sub-drawer {
+      display: none;
+      margin-top: 10px;
+      padding-top: 12px;
+      border-top: 1px dashed rgba(255, 255, 255, 0.15);
+      flex-direction: column;
+      gap: 12px;
+      cursor: default;
+    }
+
+    .ios-food-card.expanded .food-sub-drawer { display: flex; }
+
+    .size-option-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.04);
+      padding: 8px 12px;
+      border-radius: 12px;
+    }
+
+    .size-label {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #cbd5e1;
+    }
+
+    .size-price {
+      color: var(--accent-gold);
+      font-weight: 900;
+      font-size: 0.95rem;
+    }
+
+    .add-to-cart-btn {
+      background: linear-gradient(135deg, var(--accent-gold) 0%, var(--accent-orange) 100%);
+      color: #0b0c0e;
+      border: none;
+      padding: 6px 14px;
+      border-radius: 10px;
+      font-weight: 800;
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .add-to-cart-btn.disabled-btn {
+      background: #475569 !important;
+      color: #94a3b8 !important;
+      cursor: not-allowed !important;
+      box-shadow: none !important;
+    }
+
+    .fab-floating-panel {
+      position: fixed;
+      right: 16px;
+      bottom: 85px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      z-index: 1000;
+    }
+
+    .fab-action-btn {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
+      position: relative;
+    }
+
+    .fab-cart {
+      background: linear-gradient(135deg, var(--accent-gold) 0%, var(--accent-orange) 100%);
+      border: 1.5px solid rgba(255, 255, 255, 0.6);
+    }
+    .fab-cart.disabled-fab {
+      filter: grayscale(1);
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+    .fab-cart svg { width: 20px; height: 20px; fill: #07080b; }
+
+    .cart-badge {
+      position: absolute;
+      top: -3px;
+      right: -3px;
+      background: #ef4444;
+      color: #fff;
+      font-size: 0.65rem;
+      font-weight: 900;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid #07080b;
+    }
+
+    .fab-call {
+      background: linear-gradient(135deg, rgba(255, 183, 3, 0.92) 0%, rgba(251, 133, 0, 0.92) 100%);
+      border: 1.5px solid rgba(255, 255, 255, 0.6);
+    }
+    .fab-call svg { width: 19px; height: 19px; fill: #0b0c0e; }
+
+    .fab-insta {
+      background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+      border: 1.5px solid rgba(255, 255, 255, 0.6);
+    }
+    .fab-insta svg { width: 20px; height: 20px; fill: #ffffff; }
+
+    .ios-dock-outer {
+      position: fixed;
+      bottom: 18px;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: center;
+      padding: 0 14px;
+      z-index: 998;
+    }
+
+    .ios-glass-dock {
+      max-width: 620px;
+      width: 100%;
+      height: 54px;
+      background: rgba(16, 20, 32, 0.85);
+      border: 1px solid var(--glass-border);
+      border-radius: 40px;
+      padding: 6px 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      backdrop-filter: var(--ios-liquid-blur);
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.85);
+    }
+
+    .dock-scrollable-tabs {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      overflow-x: auto;
+      white-space: nowrap;
+      height: 100%;
+      flex: 1;
+      scrollbar-width: none;
+    }
+    .dock-scrollable-tabs::-webkit-scrollbar { display: none; }
+
+    .dock-pill-btn {
+      height: 38px;
+      background: rgba(28, 34, 48, 0.55);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #a0aec0;
+      padding: 0 14px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 0.82rem;
+    }
+
+    .dock-pill-btn.active {
+      background: linear-gradient(135deg, var(--accent-gold) 0%, var(--accent-orange) 100%);
+      color: #07080b !important;
+      font-weight: 900;
+    }
+
+    .track-pill-btn {
+      height: 38px;
+      background: transparent;
+      border: 1.5px dashed var(--accent-gold);
+      color: var(--accent-gold);
+      padding: 0 14px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: 800;
+      font-size: 0.78rem;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      flex-shrink: 0;
+      transition: all 0.2s ease;
+    }
+    .track-pill-btn:hover { background: rgba(255, 183, 3, 0.1); }
+
+    footer {
+      max-width: 620px;
+      margin: 35px auto 10px;
+      padding: 0 16px;
+    }
+    .glass-footer-card {
+      background: var(--glass-surface);
+      border: 1px solid var(--glass-border);
+      border-top: 1.5px solid var(--glass-specular);
+      border-radius: 22px;
+      padding: 20px;
+      backdrop-filter: var(--ios-liquid-blur);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      text-align: center;
+    }
+    .footer-heading {
+      font-family: 'Lalezar', cursive;
+      font-size: 1.4rem;
+      color: var(--accent-gold);
+    }
+    .footer-row {
+      font-size: 0.88rem;
+      color: #e2e8f0;
+      text-decoration: none;
+    }
+
+    .glass-modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(20px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      padding: 15px;
+    }
+
+    .glass-modal-overlay.active {
+      display: flex !important;
+    }
+
+    .glass-modal-box {
+      background: rgba(20, 24, 34, 0.95);
+      border: 1px solid rgba(255, 183, 3, 0.45);
+      border-radius: 26px;
+      max-width: 460px;
+      width: 100%;
+      padding: 24px;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    .modal-heading {
+      font-family: 'Lalezar', cursive;
+      font-size: 1.5rem;
+      color: #fff;
+      margin-bottom: 14px;
+      text-align: center;
+    }
+
+    .form-group {
+      margin-bottom: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .form-group label {
+      font-size: 0.82rem;
+      color: #cbd5e1;
+      font-weight: 600;
+    }
+
+    .form-control {
+      background: rgba(10, 13, 20, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 12px;
+      padding: 10px 14px;
+      color: #fff;
+      font-size: 0.9rem;
+      outline: none;
+    }
+
+    .cart-items-list {
+      max-height: 180px;
+      overflow-y: auto;
+      margin-bottom: 12px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      padding-bottom: 6px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .cart-item-row {
+      background: rgba(255,255,255,0.04);
+      padding: 8px 10px;
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .thermal-receipt {
+      background: #f8fafc;
+      color: #0f172a;
+      font-family: 'Courier New', Courier, monospace;
+      padding: 16px;
+      border-radius: 6px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+      font-size: 0.85rem;
+      line-height: 1.5;
+      margin-bottom: 14px;
+    }
+    .receipt-header {
+      text-align: center;
+      border-bottom: 2px dashed #cbd5e1;
+      padding-bottom: 10px;
+      margin-bottom: 10px;
+    }
+    .receipt-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 4px;
+    }
+    .receipt-footer {
+      border-top: 2px dashed #cbd5e1;
+      padding-top: 10px;
+      margin-top: 10px;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    .loader-wrap {
+      text-align: center;
+      padding: 70px 20px;
+      color: var(--accent-gold);
+      font-weight: 800;
+    }
+
+    .track-status-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 20px;
+      border-radius: 16px;
+      font-size: 0.95rem;
+      font-weight: 900;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.4);
+      margin: 8px 0;
+      animation: fadeInScale 0.3s ease;
+    }
+
+    @keyframes fadeInScale {
+      0% { opacity: 0; transform: scale(0.9); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
+    .badge-pending {
+      background: rgba(255, 183, 3, 0.15);
+      border: 1.5px solid #ffb703;
+      color: #ffb703;
+    }
+
+    .badge-preparing {
+      background: rgba(59, 130, 246, 0.15);
+      border: 1.5px solid #3b82f6;
+      color: #60a5fa;
+    }
+
+    .badge-sent {
+      background: rgba(168, 85, 247, 0.15);
+      border: 1.5px solid #a855f7;
+      color: #c084fc;
+    }
+
+    .badge-delivered {
+      background: rgba(34, 197, 94, 0.15);
+      border: 1.5px solid #22c55e;
+      color: #4ade80;
+    }
+
+    .badge-error {
+      background: rgba(239, 68, 68, 0.15);
+      border: 1.5px solid #ef4444;
+      color: #f87171;
+    }
+
+    #customAlertOverlay {
+      z-index: 100000 !important;
+    }
+
+    .custom-alert-box {
+      background: #181e2c;
+      border: 1.5px solid var(--accent-gold);
+      border-radius: 24px;
+      max-width: 380px;
+      width: 100%;
+      padding: 24px;
+      text-align: center;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.9);
+      animation: bounceIn 0.25s ease;
+    }
+
+    @keyframes bounceIn {
+      0% { transform: scale(0.85); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="fixed-bg-stage"></div>
+  <div class="hazard-top-bar"></div>
+
+  <div class="store-closed-banner" id="closedBanner">
+    ⛔ سفارش‌گیری اینترنتی موقتاً غیرفعال است لطفا جهت سفارش تماس بگیرید..
+  </div>
+
+  <aside class="fab-floating-panel">
+    <button class="fab-action-btn fab-cart" id="fabCartBtn" onclick="openCartModal()" aria-label="سبد خرید">
+      <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
+      <span class="cart-badge" id="cartItemCount">۰</span>
+    </button>
+    <a href="tel:09339702512" class="fab-action-btn fab-call" aria-label="تماس تلفنی">
+      <svg viewBox="0 0 24 24"><path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+    </a>
+    <a href="https://instagram.com/bomb_factory_abadan" target="_blank" rel="noopener noreferrer" class="fab-action-btn fab-insta" aria-label="اینستاگرام">
+      <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+    </a>
+  </aside>
+
+  <!-- پنجره هشدار قیمت اولیه -->
+  <div class="glass-modal-overlay active" id="priceModal">
+    <div class="glass-modal-box" style="text-align: center;">
+      <div style="font-size: 3rem; margin-bottom: 10px;">🔔</div>
+      <h3 class="modal-heading">توجه مهم</h3>
+      <p style="color: #e2e8f0; font-size: 0.95rem; line-height: 1.6; margin-bottom: 14px;">
+        به دلیل نوسانات قیمت، لطفاً قبل از سفارش از بروز بودن قیمتها اطمینان حاصل فرمایید.
+      </p>
+      <div style="margin-bottom: 22px; font-size: 0.76rem; color: #94a3b8; font-weight: 400; opacity: 0.9;">
+        آخرین بروزرسانی قیمت‌ها: <span id="modalNoticeDate" style="color: #cbd5e1;">در حال بارگذاری...</span>
+      </div>
+      <button type="button" id="btnUnderstand" onclick="closeModal()" style="background: linear-gradient(135deg, #ffb703 0%, #fb8500 100%); color: #0b0c0e; border: none; padding: 12px 30px; border-radius: 30px; font-weight: 800; cursor: pointer; width: 100%;">
+        متوجه شدم • مشاهده منو
+      </button>
+    </div>
+  </div>
+
+  <!-- بالن هشدار اختصاصی -->
+  <div class="glass-modal-overlay" id="customAlertOverlay">
+    <div class="custom-alert-box">
+      <div id="customAlertIcon" style="font-size: 2.8rem; margin-bottom: 8px;">⚠️</div>
+      <h3 id="customAlertTitle" style="font-family:'Lalezar'; font-size:1.35rem; color:var(--accent-gold); margin-bottom:8px;">توجه</h3>
+      <p id="customAlertMsg" style="font-size:0.9rem; color:#cbd5e1; line-height:1.6; margin-bottom:18px;"></p>
+      <button type="button" onclick="closeCustomAlert()" style="background: linear-gradient(135deg, #ffb703 0%, #fb8500 100%); color:#000; border:none; padding:10px 25px; border-radius:20px; font-weight:800; width:100%; cursor:pointer;">
+        متوجه شدم
+      </button>
+    </div>
+  </div>
+
+  <div class="glass-modal-overlay" id="cartModal">
+    <div class="glass-modal-box">
+      <h3 class="modal-heading">🛒 سبد خرید شما</h3>
+      <div class="cart-items-list" id="cartItemsContainer"></div>
+      <div style="display:flex; justify-content:space-between; font-weight:900; margin: 12px 0; font-size:1.05rem; color:var(--accent-gold);">
+        <span>مجموع کل:</span>
+        <span id="cartTotalPrice">۰ ریال</span>
+      </div>
+      <div class="form-group">
+        <label>توضیحات کل سفارش (اختیاری):</label>
+        <input type="text" id="orderNote" class="form-control" placeholder="مثلاً: زنگ در خراب است...">
+      </div>
+      <div style="display: flex; gap: 10px; margin-top: 14px;">
+        <button onclick="goToCheckout()" style="flex:2; background: linear-gradient(135deg, #ffb703 0%, #fb8500 100%); color: #000; border: none; padding: 12px; border-radius: 14px; font-weight:900; cursor:pointer;">
+          مرحله بعد و تکمیل مشخصات ➔
+        </button>
+        <button onclick="closeCartModal()" style="flex:1; background: rgba(255,255,255,0.1); color: #fff; border: none; padding: 12px; border-radius: 14px; font-weight:700; cursor:pointer;">
+          بازگشت
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="glass-modal-overlay" id="checkoutModal">
+    <div class="glass-modal-box">
+      <h3 class="modal-heading">📋 تکمیل اطلاعات ارسال</h3>
+      <div class="form-group">
+        <label>نام و نام خانوادگی:</label>
+        <input type="text" id="custName" class="form-control" placeholder="مثلا:حسام احمدی">
+      </div>
+      <div class="form-group">
+        <label>شماره موبایل:</label>
+        <input type="tel" id="custPhone" class="form-control" placeholder="09123456789" style="direction: ltr; text-align: right; font-family: monospace;">
+      </div>
+      <div class="form-group">
+        <label>منطقه / محله (آبادان):</label>
+        <select id="custDistrict" class="form-control" onchange="handleDistrictChange(this.value)">
+          <option value="امیری">امیری</option>
+          <option value="امیرآباد">امیرآباد</option>
+          <option value="احمدآباد">احمدآباد</option>
+          <option value="کوی قدس">کوی قدس</option>
+          <option value="ذوالفقاری">ذوالفقاری</option>
+          <option value="فرهنگیان">فرهنگیان</option>
+          <option value="بریم">بریم</option>
+          <option value="زمین شهری">زمین شهری</option>
+          <option value="شهرک دریا">شهرک دریا</option>
+          <option value="سده">سده</option>
+          <option value="سایر">سایر محله‌ها (ورود دستی)</option>
+        </select>
+      </div>
+      <div class="form-group" id="customDistrictBox" style="display: none;">
+        <label>نام محله خود را وارد کنید:</label>
+        <input type="text" id="custCustomDistrict" class="form-control" placeholder="نام محله...">
+      </div>
+      <div class="form-group">
+        <label>آدرس دقیق پستی:</label>
+        <textarea id="custAddress" class="form-control" rows="2" placeholder="خیابان، پلاک، واحد..."></textarea>
+      </div>
+      <div style="display: flex; gap: 10px; margin-top: 14px;">
+        <button onclick="goToReceipt()" style="flex:2; background: linear-gradient(135deg, #ffb703 0%, #fb8500 100%); color: #000; border: none; padding: 12px; border-radius: 14px; font-weight:900; cursor:pointer;">
+          مشاهده فیش رسید نهایی ➔
+        </button>
+        <button onclick="backToCart()" style="flex:1; background: rgba(255,255,255,0.1); color: #fff; border: none; padding: 12px; border-radius: 14px; font-weight:700; cursor:pointer;">
+          بازگشت
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="glass-modal-overlay" id="receiptModal">
+    <div class="glass-modal-box">
+      <h3 class="modal-heading">🧾 فیش رسید سفارش</h3>
+      <div class="thermal-receipt" id="thermalReceiptContent"></div>
+      <div style="display: flex; gap: 10px; margin-top: 10px;">
+        <button id="btnFinalSubmit" onclick="submitOrderAndSMS()" style="flex:2; background: #22c55e; color: #fff; border: none; padding: 12px; border-radius: 14px; font-weight:900; cursor:pointer;">
+          تایید و ارسال پیامک سفارش 🚀
+        </button>
+        <button onclick="backToCheckout()" style="flex:1; background: rgba(255,255,255,0.1); color: #fff; border: none; padding: 12px; border-radius: 14px; font-weight:700; cursor:pointer;">
+          ویرایش
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="glass-modal-overlay" id="trackModal">
+    <div class="glass-modal-box" style="text-align: center;">
+      <h3 class="modal-heading">🔍 پیگیری وضعیت سفارش</h3>
+      <p style="color: #cbd5e1; font-size: 0.9rem; margin-bottom: 14px;">لطفاً کد رهگیری ۴ رقمی سفارش خود را وارد کنید:</p>
+      <div class="form-group">
+        <input type="text" id="modalTrackInput" class="form-control" placeholder="2653" style="text-align: center; font-size: 1.3rem; letter-spacing: 4px; font-weight: 900; font-family: monospace;">
+      </div>
+      <div id="modalTrackResultBox" style="margin: 14px 0; min-height: 48px; display: flex; justify-content: center; align-items: center;"></div>
+      <div style="display: flex; gap: 10px; margin-top: 14px;">
+        <button onclick="executeTrackOrder()" style="flex:2; background: var(--accent-gold); color: #000; border: none; padding: 12px; border-radius: 14px; font-weight:900; cursor:pointer;">
+          استعلام وضعیت
+        </button>
+        <button onclick="closeTrackModal()" style="flex:1; background: rgba(255,255,255,0.1); color: #fff; border: none; padding: 12px; border-radius: 14px; font-weight:700; cursor:pointer;">
+          انصراف
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <header>
+    <div class="logo-box">
+      <img src="https://lh3.googleusercontent.com/d/1MYRPx9MuOfcBWX6bmh6xsWg4qFKxyJhf" alt="لوگوی کارخانه بمب" class="pacman-logo">
+    </div>
+    <h1 class="brand-title-fa">کارخانه بمب</h1>
+    <div class="brand-title-en">BOMB FACTORY</div>
+    <div class="hazard-tag-pill">⚠️ اولین و تنها فست فود بمبی در آبادان ⚠️</div>
+    <div class="update-date-badge" id="updateDateBadge" aria-label="تاریخ بروزرسانی">
+      <span class="update-date-icon">↻</span>
+      <span class="update-date-label">بروزرسانی:</span>
+      <span class="update-date-value" id="updateDateValue">—</span>
+    </div>
+  </header>
+
+  <main class="menu-wrap" id="menuList">
+    <div class="loader-wrap">
+      <div class="glass-spinner"></div>
+      <span>در حال بارگذاری منوی کارخانه بمب...</span>
+    </div>
+  </main>
+
+  <footer>
+    <div class="glass-footer-card">
+      <div class="footer-heading">ارتباط با کارخانه بمب</div>
+      <div class="footer-row">
+        <span>📍 آبادان، خیابان اداره بندر، روبروی درب پارکینگ سیتی‌سنتر</span>
+      </div>
+      <a href="tel:09339702512" class="footer-row" style="color: var(--accent-gold); font-weight: 700;">
+        <span>📞 تلفن سفارشات: ۰۹۳۳۹۷۰۲۵۱۲</span>
+      </a>
+    </div>
+  </footer>
+
+  <div class="ios-dock-outer">
+    <div class="ios-glass-dock" id="iosGlassDock">
+      <button class="track-pill-btn" onclick="openTrackModal()">
+        <span>🔍</span> پیگیری سفارش
+      </button>
+      <nav class="dock-scrollable-tabs" id="categoryTabs"></nav>
+    </div>
+  </div>
+
+  <script>
+    const MENU_API_URL = "https://script.google.com/macros/s/AKfycbxJWHLln0HbnsUCDmeqAbMRfHnVzJDD0x-YEw0ZA3BLnCdrE8Cm1mnM-TR_ijLS6sfIVA/exec";
+    const ORDERS_API_URL = "https://script.google.com/macros/s/AKfycbxLfPcP6I_t5kTldf5D1n-jUk0yZJ6hMDG76-nXcjvmHjAiY76CL3xdUr3Move5CI3m/exec";
+
+    let allItems = [];
+    let currentCategory = "همه";
+    let updateDate = "";
+    let cart = {};
+    let isStoreOpen = true;
+
+    function toFaDigits(str) {
+      if (str === null || str === undefined) return "";
+      return String(str).replace(/[0-9]/g, d => "۰۱۲۳۴۵۶۷۸۹"[d]);
+    }
+
+    function showCustomAlert(msg, title = "توجه", icon = "⚠️") {
+      document.getElementById("customAlertTitle").textContent = title;
+      document.getElementById("customAlertMsg").textContent = msg;
+      document.getElementById("customAlertIcon").textContent = icon;
+      document.getElementById("customAlertOverlay").classList.add("active");
+    }
+
+    function closeCustomAlert() {
+      document.getElementById("customAlertOverlay").classList.remove("active");
+    }
+
+    // اصلاح قطعی تابع بستن مودال اولیه
+    function closeModal() {
+      const modal = document.getElementById("priceModal");
+      if (modal) {
+        modal.classList.remove("active");
+        modal.style.setProperty("display", "none", "important");
+      }
+    }
+
+    function checkStoreStatus() {
+      fetch(`${ORDERS_API_URL}?action=get_store_status&_t=${Date.now()}`)
+        .then(res => res.json())
+        .then(data => {
+          if (data && data.status) {
+            isStoreOpen = (data.status === "OPEN");
+            applyStoreStatusUI();
+          }
+        })
+        .catch(err => {});
+    }
+
+    function applyStoreStatusUI() {
+      const banner = document.getElementById("closedBanner");
+      const fabCart = document.getElementById("fabCartBtn");
+
+      if (!isStoreOpen) {
+        if (banner) banner.style.display = "block";
+        if (fabCart) fabCart.classList.add("disabled-fab");
+      } else {
+        if (banner) banner.style.display = "none";
+        if (fabCart) fabCart.classList.remove("disabled-fab");
+      }
+      renderItems();
+    }
+
+    function formatToPersianDate(rawStr) {
+      if (!rawStr) return "—";
+      
+      const toEnDigits = s => String(s).replace(/[۰-۹]/g, d => "۰۱۲۳۴۵۶۷۸۹".indexOf(d));
+      const clean = toEnDigits(rawStr).trim();
+
+      const shamsiMatch = clean.match(/^(\d{4})[\/\-](\d{1,2})[\/\-](\d{1,2})/);
+      if (shamsiMatch && parseInt(shamsiMatch[1], 10) > 1300 && parseInt(shamsiMatch[1], 10) < 1500) {
+        const y = shamsiMatch[1];
+        const m = shamsiMatch[2].padStart(2, '0');
+        const d = shamsiMatch[3].padStart(2, '0');
+        return toFaDigits(`${y}/${m}/${d}`);
+      }
+
+      const parsedDate = new Date(clean);
+      if (!isNaN(parsedDate.getTime())) {
+        const p = new Intl.DateTimeFormat('fa-IR-u-nu-latn', {
+          timeZone: 'Asia/Tehran',
+          year: 'numeric', month: '2-digit', day: '2-digit'
+        }).formatToParts(parsedDate);
+        const map = {};
+        p.forEach(x => map[x.type] = x.value);
+        return toFaDigits(`${map.year}/${map.month}/${map.day}`);
+      }
+
+      return toFaDigits(rawStr);
+    }
+
+    function renderUpdateDate() {
+      const formatted = formatToPersianDate(updateDate);
+      const valueEl = document.getElementById("updateDateValue");
+      if (valueEl) valueEl.textContent = formatted;
+      
+      const modalNotice = document.getElementById("modalNoticeDate");
+      if (modalNotice) modalNotice.textContent = formatted;
+    }
+
+    // فراخوانی فوری تاریخ از کش مرورگر و شروع بارگذاری
+    window.addEventListener("DOMContentLoaded", () => {
+      // ۱. اگر قبلاً تاریخی لود شده، در کسری از ثانیه نشان داده شود
+      const cachedDate = localStorage.getItem("bomb_menu_last_date");
+      if (cachedDate) {
+        updateDate = cachedDate;
+        renderUpdateDate();
+      }
+
+      checkStoreStatus();
+      setInterval(checkStoreStatus, 15000);
+
+      // ۲. بارگذاری سریع کل داده‌ها از وب‌اپلیکیشن
+      fetch(`${MENU_API_URL}?_nocache=${Date.now()}`)
+        .then(res => res.json())
+        .then(data => {
+          if (data && Array.isArray(data.items)) {
+            allItems = data.items;
+            if (data.updateDate) {
+              updateDate = data.updateDate;
+              localStorage.setItem("bomb_menu_last_date", updateDate);
+              renderUpdateDate();
+            }
+            renderCategories();
+            renderItems();
+          } else {
+            throw new Error("Invalid menu data");
+          }
+        })
+        .catch(() => {
+          document.getElementById("menuList").innerHTML = '<div class="loader-wrap" style="color: #ef4444;">خطا در بارگذاری منو.</div>';
+        });
+    });
+
+    function isValidPrice(val) {
+      if (!val) return false;
+      const s = val.toString().trim();
+      if (s === "" || s === "0") return false;
+      return Number(s.replace(/[^0-9]/g, '')) > 0;
+    }
+
+    function formatNumberRial(val) {
+      if (!val) return "";
+      const cleaned = Number(val.toString().replace(/[^0-9]/g, ''));
+      if (!cleaned) return val;
+      const rialAmount = cleaned * 10;
+      return toFaDigits(rialAmount.toLocaleString('en-US'));
+    }
+
+    function renderCategories() {
+      const rawCats = allItems.map(i => i.category).filter(Boolean);
+      const cats = ["همه", ...new Set(rawCats)];
+      document.getElementById("categoryTabs").innerHTML = cats.map(cat => `
+        <button class="dock-pill-btn ${cat === currentCategory ? 'active' : ''}" onclick="selectCategory('${cat}')">${cat}</button>
+      `).join('');
+    }
+
+    function selectCategory(category) {
+      currentCategory = category;
+      renderCategories();
+      renderItems();
+    }
+
+    function resolveOptionLabel(text, defaultPrefix, isDualPrice) {
+      if (!text || String(text).trim() === "") {
+        return isDualPrice ? defaultPrefix : "";
+      }
+      const trimmed = String(text).trim();
+
+      if (/^\d+$/.test(trimmed)) {
+        if (isDualPrice) {
+          return `${defaultPrefix} (${toFaDigits(trimmed)} نفره)`;
+        } else {
+          return `${toFaDigits(trimmed)} نفره`;
+        }
+      }
+
+      return toFaDigits(trimmed);
+    }
+
+    function renderItems() {
+      const container = document.getElementById("menuList");
+      const btnLabel = isStoreOpen ? "افزودن +" : "تعطیل است";
+      const btnDisabledClass = isStoreOpen ? "" : "disabled-btn";
+
+      if (currentCategory === "نوشیدنی") {
+        const drinks = allItems.filter(i => (i.category || "").trim() === "نوشیدنی");
+        if (drinks.length === 0) {
+          container.innerHTML = '<div class="loader-wrap" style="color: #94a3b8;">نوشیدنی‌ای یافت نشد.</div>';
+          return;
+        }
+
+        let drawerRows = '';
+        drinks.forEach(item => {
+          const hasP1 = isValidPrice(item.price);
+          const hasP2 = isValidPrice(item.price2);
+
+          if (hasP1 && !hasP2) {
+            const label = item.persons1 ? String(item.persons1).trim() : '';
+            const displayTitle = label ? `${item.name} (${toFaDigits(label)})` : item.name;
+            drawerRows += `
+              <div class="size-option-row">
+                <span class="size-label">${displayTitle}</span>
+                <div>
+                  <span class="size-price">${formatNumberRial(item.price)} ریال</span>
+                  <button class="add-to-cart-btn ${btnDisabledClass}" onclick="addToCart(${item.id}, '${label || ''}', '${item.name}', '${item.price}')">${btnLabel}</button>
+                </div>
+              </div>`;
+          } else {
+            if (hasP2) {
+              const label2 = resolveOptionLabel(item.persons2, "بزرگ", true);
+              drawerRows += `
+                <div class="size-option-row">
+                  <span class="size-label">${item.name} (${label2})</span>
+                  <div>
+                    <span class="size-price">${formatNumberRial(item.price2)} ریال</span>
+                    <button class="add-to-cart-btn ${btnDisabledClass}" onclick="addToCart(${item.id}, '${label2}', '${item.name}', '${item.price2}')">${btnLabel}</button>
+                  </div>
+                </div>`;
+            }
+            if (hasP1) {
+              const label1 = resolveOptionLabel(item.persons1, "کوچک", true);
+              drawerRows += `
+                <div class="size-option-row">
+                  <span class="size-label">${item.name} (${label1})</span>
+                  <div>
+                    <span class="size-price">${formatNumberRial(item.price)} ریال</span>
+                    <button class="add-to-cart-btn ${btnDisabledClass}" onclick="addToCart(${item.id}, '${label1}', '${item.name}', '${item.price}')">${btnLabel}</button>
+                  </div>
+                </div>`;
+            }
+          }
+        });
+
+        container.innerHTML = `
+          <div class="ios-food-card expanded" id="card_drinks_group" onclick="toggleCard('drinks_group', event)">
+            <div class="card-main-row">
+              <h2 class="food-title">🥤 منوی انواع نوشیدنی‌ها</h2>
+              <span style="font-size: 0.8rem; color: var(--accent-gold);">مشاهده و انتخاب  ▾</span>
+            </div>
+            <p class="food-desc">انواع نوشابه قوطی، خانواده، دلستر، آب‌معدنی و...</p>
+            <div class="food-sub-drawer" style="display: flex;">
+              ${drawerRows}
+            </div>
+          </div>
+        `;
+        return;
+      }
+
+      let filtered = allItems;
+      if (currentCategory !== "همه") {
+        filtered = filtered.filter(i => i.category === currentCategory);
+      } else {
+        filtered = filtered.filter(i => (i.category || "").trim() !== "نوشیدنی");
+      }
+
+      if (filtered.length === 0 && currentCategory !== "همه") {
+        container.innerHTML = '<div class="loader-wrap" style="color: #94a3b8;">آیتمی پیدا نشد.</div>';
+        return;
+      }
+
+      let html = filtered.map(item => {
+        const hasP1 = isValidPrice(item.price);
+        const hasP2 = isValidPrice(item.price2);
+        const isDual = hasP1 && hasP2;
+
+        const labelSmall = resolveOptionLabel(item.persons1, "کوچک", isDual);
+        const labelLarge = resolveOptionLabel(item.persons2, "بزرگ", isDual);
+
+        let sizeOptionsHtml = '';
+
+        if (hasP2) {
+          sizeOptionsHtml += `
+            <div class="size-option-row">
+              <span class="size-label">${labelLarge || item.name}</span>
+              <div>
+                <span class="size-price">${formatNumberRial(item.price2)} ریال</span>
+                <button class="add-to-cart-btn ${btnDisabledClass}" onclick="addToCart(${item.id}, '${labelLarge}', '${item.name}', '${item.price2}')">${btnLabel}</button>
+              </div>
+            </div>`;
+        }
+
+        if (hasP1) {
+          sizeOptionsHtml += `
+            <div class="size-option-row">
+              <span class="size-label">${labelSmall || item.name}</span>
+              <div>
+                <span class="size-price">${formatNumberRial(item.price)} ریال</span>
+                <button class="add-to-cart-btn ${btnDisabledClass}" onclick="addToCart(${item.id}, '${labelSmall}', '${item.name}', '${item.price}')">${btnLabel}</button>
+              </div>
+            </div>`;
+        }
+
+        return `
+          <div class="ios-food-card" id="card_${item.id}" onclick="toggleCard(${item.id}, event)">
+            <div class="card-main-row">
+              <h2 class="food-title">${item.name}</h2>
+              <span style="font-size: 0.8rem; color: var(--accent-gold);">مشاهده و انتخاب  ▾</span>
+            </div>
+            ${item.desc ? `<p class="food-desc">${toFaDigits(item.desc)}</p>` : ''}
+            <div class="food-sub-drawer">
+              ${sizeOptionsHtml}
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      if (currentCategory === "همه") {
+        const drinks = allItems.filter(i => (i.category || "").trim() === "نوشیدنی");
+        if (drinks.length > 0) {
+          let drawerRows = '';
+          drinks.forEach(item => {
+            const hasP1 = isValidPrice(item.price);
+            const hasP2 = isValidPrice(item.price2);
+            if (hasP1 && !hasP2) {
+              const label = item.persons1 ? String(item.persons1).trim() : '';
+              const displayTitle = label ? `${item.name} (${toFaDigits(label)})` : item.name;
+              drawerRows += `
+                <div class="size-option-row">
+                  <span class="size-label">${displayTitle}</span>
+                  <div>
+                    <span class="size-price">${formatNumberRial(item.price)} ریال</span>
+                    <button class="add-to-cart-btn ${btnDisabledClass}" onclick="addToCart(${item.id}, '${label || ''}', '${item.name}', '${item.price}')">${btnLabel}</button>
+                  </div>
+                </div>`;
+            } else {
+              if (hasP2) {
+                const label2 = resolveOptionLabel(item.persons2, "بزرگ", true);
+                drawerRows += `
+                  <div class="size-option-row">
+                    <span class="size-label">${item.name} (${label2})</span>
+                    <div>
+                      <span class="size-price">${formatNumberRial(item.price2)} ریال</span>
+                      <button class="add-to-cart-btn ${btnDisabledClass}" onclick="addToCart(${item.id}, '${label2}', '${item.name}', '${item.price2}')">${btnLabel}</button>
+                    </div>
+                  </div>`;
+              }
+              if (hasP1) {
+                const label1 = resolveOptionLabel(item.persons1, "کوچک", true);
+                drawerRows += `
+                  <div class="size-option-row">
+                    <span class="size-label">${item.name} (${label1})</span>
+                    <div>
+                      <span class="size-price">${formatNumberRial(item.price)} ریال</span>
+                      <button class="add-to-cart-btn ${btnDisabledClass}" onclick="addToCart(${item.id}, '${label1}', '${item.name}', '${item.price}')">${btnLabel}</button>
+                    </div>
+                  </div>`;
+              }
+            }
+          });
+
+          html += `
+            <div class="ios-food-card" id="card_drinks_group" onclick="toggleCard('drinks_group', event)">
+              <div class="card-main-row">
+                <h2 class="food-title">🥤 منوی انواع نوشیدنی‌ها</h2>
+                <span style="font-size: 0.8rem; color: var(--accent-gold);">مشاهده و انتخاب  ▾</span>
+              </div>
+              <p class="food-desc">انواع نوشابه قوطی، خانواده، دلستر، آب‌معدنی و...</p>
+              <div class="food-sub-drawer">
+                ${drawerRows}
+              </div>
+            </div>
+          `;
+        }
+      }
+
+      container.innerHTML = html;
+    }
+
+    function toggleCard(id, event) {
+      if (event.target.tagName === 'BUTTON' || event.target.tagName === 'INPUT') return;
+      const allCards = document.querySelectorAll('.ios-food-card');
+      allCards.forEach(card => {
+        if (card.id === `card_${id}`) {
+          card.classList.toggle('expanded');
+        } else {
+          card.classList.remove('expanded');
+        }
+      });
+    }
+
+    function addToCart(id, tier, name, priceStr) {
+      if (!isStoreOpen) {
+        showCustomAlert("با عرض پوزش، در حال حاضر سفارش‌گیری غیرفعال است.", "فروشگاه بسته است", "⛔");
+        return;
+      }
+      const key = `${id}_${tier}`;
+      const numericPrice = Number(priceStr.toString().replace(/[^0-9]/g, ''));
+      if (!cart[key]) {
+        cart[key] = { id, name, tier, price: numericPrice, qty: 1, note: '' };
+      } else {
+        cart[key].qty += 1;
+      }
+      updateCartUI();
+    }
+
+    function updateCartUI() {
+      let totalCount = 0;
+      Object.values(cart).forEach(i => totalCount += i.qty);
+      document.getElementById("cartItemCount").textContent = toFaDigits(totalCount);
+    }
+
+    function openCartModal() {
+      if (!isStoreOpen) {
+        showCustomAlert("در حال حاضر سفارش‌گیری تعطیل است.", "فروشگاه بسته است", "⛔");
+        return;
+      }
+      const keys = Object.keys(cart);
+      if (keys.length === 0) {
+        showCustomAlert("سبد خرید شما در حال حاضر خالی است!", "سبد خرید خالی", "🛒");
+        return;
+      }
+      renderCartItemsList();
+      document.getElementById("cartModal").classList.add("active");
+    }
+
+    function closeCartModal() {
+      document.getElementById("cartModal").classList.remove("active");
+    }
+
+    function renderCartItemsList() {
+      const container = document.getElementById("cartItemsContainer");
+      const keys = Object.keys(cart);
+      let html = '';
+      let sum = 0;
+
+      keys.forEach(k => {
+        const item = cart[k];
+        const itemTotal = item.price * item.qty;
+        sum += itemTotal;
+        const tierText = (item.tier && item.tier !== "سفارش" && item.tier !== "") ? ` (${item.tier})` : '';
+
+        html += `
+          <div class="cart-item-row">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <strong>${item.name}${tierText}</strong>
+              <span style="color: var(--accent-gold); font-weight:900;">${formatNumberRial(itemTotal)} ریال</span>
+            </div>
+            <div style="display:flex; justify-content:space-between; align-items:center; gap:8px;">
+              <div style="display:flex; align-items:center; gap:6px; background: rgba(0,0,0,0.3); padding: 2px 8px; border-radius: 8px;">
+                <button onclick="changeCartQty('${k}', -1)" style="background:none; border:none; color:var(--accent-gold); font-weight:bold; cursor:pointer; font-size:1rem;">-</button>
+                <span style="font-weight:bold; min-width:16px; text-align:center;">${toFaDigits(item.qty)}</span>
+                <button onclick="changeCartQty('${k}', 1)" style="background:none; border:none; color:var(--accent-gold); font-weight:bold; cursor:pointer; font-size:1rem;">+</button>
+              </div>
+              <button onclick="removeCartItem('${k}')" style="background: rgba(239, 68, 68, 0.2); color: #f87171; border: none; padding: 4px 8px; border-radius: 6px; font-size: 0.75rem; cursor:pointer;">حذف</button>
+            </div>
+            <div>
+              <input type="text" class="form-control" style="padding: 4px 8px; font-size: 0.78rem;" placeholder="توضیح برای این مورد..." value="${item.note}" oninput="updateCartItemNote('${k}', this.value)">
+            </div>
+          </div>
+        `;
+      });
+
+      container.innerHTML = html;
+      document.getElementById("cartTotalPrice").textContent = formatNumberRial(sum) + " ریال";
+    }
+
+    function changeCartQty(key, delta) {
+      if (cart[key]) {
+        cart[key].qty += delta;
+        if (cart[key].qty <= 0) delete cart[key];
+      }
+      updateCartUI();
+      renderCartItemsList();
+      if (Object.keys(cart).length === 0) closeCartModal();
+    }
+
+    function removeCartItem(key) {
+      delete cart[key];
+      updateCartUI();
+      renderCartItemsList();
+      if (Object.keys(cart).length === 0) closeCartModal();
+    }
+
+    function updateCartItemNote(key, val) {
+      if (cart[key]) cart[key].note = val;
+    }
+
+    function goToCheckout() {
+      if (!isStoreOpen) {
+        showCustomAlert("سفارش‌گیری در حال حاضر تعطیل شده است.", "خطا", "⛔");
+        closeCartModal();
+        return;
+      }
+      closeCartModal();
+      document.getElementById("checkoutModal").classList.add("active");
+    }
+
+    function backToCart() {
+      document.getElementById("checkoutModal").classList.remove("active");
+      openCartModal();
+    }
+
+    function handleDistrictChange(val) {
+      const customBox = document.getElementById("customDistrictBox");
+      if (val === "سایر") {
+        customBox.style.display = "flex";
+      } else {
+        customBox.style.display = "none";
+      }
+    }
+
+    function getCurrentFormattedDateTime() {
+      const now = new Date();
+      const p = new Intl.DateTimeFormat('fa-IR-u-nu-latn', {
+        timeZone: 'Asia/Tehran',
+        year: 'numeric', month: '2-digit', day: '2-digit',
+        hour: '2-digit', minute: '2-digit', hour12: false
+      }).formatToParts(now);
+      const map = {};
+      p.forEach(x => map[x.type] = x.value);
+      return toFaDigits(`${map.day}/${map.month}/${map.year} - ${map.hour}:${map.minute}`);
+    }
+
+    let pendingOrderData = null;
+
+    function goToReceipt() {
+      const name = document.getElementById("custName").value.trim();
+      const phone = document.getElementById("custPhone").value.trim();
+      let district = document.getElementById("custDistrict").value;
+      const customDistrict = document.getElementById("custCustomDistrict").value.trim();
+      const address = document.getElementById("custAddress").value.trim();
+      const orderNote = document.getElementById("orderNote").value.trim();
+
+      if (district === "سایر") {
+        if (!customDistrict) {
+          showCustomAlert("لطفاً نام محله خود را وارد کنید.", "اطلاعات ناقص", "📍");
+          return;
+        }
+        district = customDistrict;
+      }
+
+      if (!name || !phone || !address) {
+        showCustomAlert("لطفاً نام و آدرس را به صورت کامل وارد کنید.", "اطلاعات ناقص", "📝");
+        return;
+      }
+
+      const trackingCode = Math.floor(1000 + Math.random() * 9000);
+      const nowFormatted = getCurrentFormattedDateTime();
+
+      let itemsSummary = [];
+      let receiptItemsHtml = '';
+      let sum = 0;
+
+      Object.values(cart).forEach(i => {
+        const itemTotal = i.price * i.qty;
+        sum += itemTotal;
+        const tierText = (i.tier && i.tier !== "سفارش" && i.tier !== "") ? ` (${i.tier})` : '';
+
+        itemsSummary.push(`${i.name}${tierText} تعداد ${toFaDigits(i.qty)}${i.note ? ' [توضیح: ' + i.note + ']' : ''}`);
+        receiptItemsHtml += `
+          <div class="receipt-row">
+            <span>${i.name}${tierText} x${toFaDigits(i.qty)}</span>
+            <span>${formatNumberRial(itemTotal)} ریال</span>
+          </div>
+          ${i.note ? `<div style="font-size:0.75rem; color:#64748b;">توضیح: ${i.note}</div>` : ''}
+        `;
+      });
+
+      pendingOrderData = {
+        trackingCode: trackingCode.toString(),
+        dateTime: nowFormatted,
+        customerName: name,
+        phone: phone,
+        district: district,
+        address: address,
+        items: itemsSummary.join(' ، '),
+        description: orderNote || "بدون توضیحات",
+        totalPrice: sum,
+        status: "در انتظار تایید"
+      };
+
+      const receiptHTML = `
+        <div class="receipt-header">
+          <strong>کارخانه بمب (آبادان)</strong><br>
+          <span style="font-size:0.75rem; font-family:monospace;">کد رهگیری: ${trackingCode}</span><br>
+          <span style="font-size:0.75rem;">تاریخ و ساعت: ${nowFormatted}</span>
+        </div>
+        <div style="margin-bottom:8px;">
+          <strong>مشتری:</strong> ${name} | <span style="font-family:monospace;">${phone}</span><br>
+          <strong>آدرس:</strong> ${district} - ${toFaDigits(address)}
+          ${orderNote ? '<br><strong>توضیحات:</strong> ' + toFaDigits(orderNote) : ''}
+        </div>
+        <div style="border-top:1px dashed #cbd5e1; border-bottom:1px dashed #cbd5e1; padding:6px 0; margin-bottom:8px;">
+          ${receiptItemsHtml}
+        </div>
+        <div class="receipt-row" style="font-weight:bold; font-size:0.95rem;">
+          <span>مجموع قابل پرداخت:</span>
+          <span>${formatNumberRial(sum)} ریال</span>
+        </div>
+        <div class="receipt-footer">
+          با تشکر از خرید شما 💣<br>
+          ۰۹۳۳۹۷۰۲۵۱۲
+        </div>
+      `;
+
+      document.getElementById("thermalReceiptContent").innerHTML = receiptHTML;
+      document.getElementById("checkoutModal").classList.remove("active");
+      document.getElementById("receiptModal").classList.add("active");
+    }
+
+    function backToCheckout() {
+      document.getElementById("receiptModal").classList.remove("active");
+      document.getElementById("checkoutModal").classList.add("active");
+    }
+
+    function submitOrderAndSMS() {
+      if (!pendingOrderData) return;
+      if (!isStoreOpen) {
+        showCustomAlert("سفارش‌گیری در حال حاضر بسته است و امکان ثبت وجود ندارد.", "خطا", "⛔");
+        document.getElementById("receiptModal").classList.remove("active");
+        return;
+      }
+
+      const btn = document.getElementById("btnFinalSubmit");
+      btn.disabled = true;
+      btn.textContent = "در حال ارسال و ثبت سفارش...";
+
+      fetch(ORDERS_API_URL, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify(pendingOrderData)
+      }).finally(() => {
+        const code = pendingOrderData.trackingCode;
+        showCustomAlert(`سفارش شما با موفقیت ثبت شد!\nکد رهگیری شما: ${code}\nاکنون به بخش پیامک هدایت می‌شوید.`, "ثبت موفق", "✅");
+        
+        setTimeout(() => {
+          const smsMessage = `تایید سفارش - کد رهگیری: ${code}`;
+          window.location.href = `sms:09339702512?body=${encodeURIComponent(smsMessage)}`;
+
+          cart = {};
+          updateCartUI();
+          document.getElementById("receiptModal").classList.remove("active");
+          pendingOrderData = null;
+          btn.disabled = false;
+          btn.textContent = "تایید و ارسال پیامک سفارش 🚀";
+        }, 1200);
+      });
+    }
+
+    function openTrackModal() {
+      document.getElementById("modalTrackInput").value = "";
+      document.getElementById("modalTrackResultBox").innerHTML = "";
+      document.getElementById("trackModal").classList.add("active");
+    }
+
+    function closeTrackModal() {
+      document.getElementById("trackModal").classList.remove("active");
+    }
+
+    function executeTrackOrder() {
+      const code = document.getElementById("modalTrackInput").value.trim();
+      const resBox = document.getElementById("modalTrackResultBox");
+      if (!code) {
+        resBox.innerHTML = '<div class="track-status-badge badge-error">⚠️ لطفاً کد رهگیری را وارد کنید.</div>';
+        return;
+      }
+      resBox.innerHTML = '<span style="color:#ffb703; font-size:0.9rem;">در حال استعلام...</span>';
+
+      fetch(`${ORDERS_API_URL}?code=${encodeURIComponent(code)}&_t=${Date.now()}`)
+        .then(res => res.json())
+        .then(data => {
+          if (!data || data.status === "not_found") {
+            resBox.innerHTML = '<div class="track-status-badge badge-error">❌ سفارش با این کد رهگیری یافت نشد.</div>';
+            return;
+          }
+
+          const st = String(data.status).trim();
+          let badgeHtml = '';
+
+          if (st === "آماده سازی" || st.includes("آماده")) {
+            badgeHtml = '<div class="track-status-badge badge-preparing">👨‍🍳 وضعیت سفارش: در حال آماده‌سازی</div>';
+          } else if (st === "دست پیک" || st.includes("ارسال") || st.includes("پیک")) {
+            badgeHtml = '<div class="track-status-badge badge-sent">🛵 وضعیت سفارش: دست پیک (در حال ارسال)</div>';
+          } else if (st === "تحویل شد" || st.includes("تحویل")) {
+            badgeHtml = '<div class="track-status-badge badge-delivered">🏁 وضعیت سفارش: تحویل شد</div>';
+          } else {
+            badgeHtml = '<div class="track-status-badge badge-pending">🟡 وضعیت سفارش: در انتظار تایید</div>';
+          }
+
+          resBox.innerHTML = badgeHtml;
+        })
+        .catch(() => {
+          resBox.innerHTML = '<div class="track-status-badge badge-error">❌ خطا در برقراری ارتباط با سامانه.</div>';
+        });
+    }
+  </script>
+</body>
+</html>
